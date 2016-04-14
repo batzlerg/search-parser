@@ -1,0 +1,23 @@
+{
+  "name": "search-parser",
+  "version": "1.0.0",
+  "description": "Search parser to simplify search param identification and matching",
+  "author": "Graham Batzler",
+  "scripts": {
+    "test": "mocha",
+    "lint": "dibslint --root=.",
+    "gitlint": "node_modules/.bin/dibslint --git --warnings"
+  },
+  "main": "SearchParser.js",
+  "pre-commit": {
+    "run": [
+      "gitlint"
+    ]
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "dibslint": "^1.2.4",
+    "mocha": "^2.3.4",
+    "pre-commit": "^1.1.2"
+  }
+}
