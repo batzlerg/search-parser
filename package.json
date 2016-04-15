@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha",
     "lint": "dibslint --root=.",
-    "gitlint": "node_modules/.bin/dibslint --git --warnings"
+    "gitlint": "dibslint --git --warnings"
   },
   "main": "SearchParser.js",
   "pre-commit": {

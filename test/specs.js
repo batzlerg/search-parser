@@ -6,15 +6,15 @@ describe("search-parser", function () {
     var testPatterns = [
         {
             param: 'param1',
-            pattern: /^([a-z]_[0-9]{1,5})$/
+            pattern: /^([a-z]_[0-9]{1,5})$/i
         },
         {
             param: 'param2',
-            pattern: /^([a-z]_[0-9]{6,}(?:,\s*[a-z]_[0-9]{6,})*)$/
+            pattern: /^([a-z]_[0-9]{6,}(?:,\s*[a-z]_[0-9]{6,})*)$/i
         },
         {
             param: 'param3',
-            pattern: /^([0-9]{6,}(?:,\s*[0-9]{6,})*)$/
+            pattern: /^([0-9]{6,}(?:,\s*[0-9]{6,})*)$/i
         },
         {
             pattern: /^(.+?)\s(.+\s)?(.+)|(.*)$/i,

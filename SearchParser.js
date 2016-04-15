@@ -6,44 +6,44 @@
 
 'use strict';
 
-module.exports = function SearchParser(patterns, options) {
+var SearchParser = function (patterns, options) {
     this.patterns = patterns;
     this.returnAllMatches = options ? options.returnAllMatches : false;
-    /**
+};
+
+/**
      * Run regex match against supplied search input
      * @param  {string} input
-     * @return {Object}       Match result, with supplied params as keys
+     * @return {schemaPartect}       Match result, with supplied params as keys
      *                        and matched strings as values
      */
-    this.match = function (input) {
-        var matches = {};
+SearchParser.prototype.match = function (input) {
+    var matches = {};
 
-        if (input.length) {
-            this.patterns.some(function (obj) {
-                var inputMatch;
-                var matchIsEmpty;
-                var matchResult;
+    if (!input.length) {
+        return {};
+    }
+    this.patterns.some(function (schemaPart) {
+        var matchResult = input.match(schemaPart.pattern);
+        var matchIsEmpty = matchResult === null ||
+                           !matchResult.length ||
+                           matchResult[0] === "";
 
-                if (obj.hasOwnProperty('parse')) {
-                    inputMatch = input.match(obj.pattern);
-                    matchIsEmpty = inputMatch[0] === ""; // empty str at [0] means no match
-                    matchResult = obj.parse(matchIsEmpty ? {} : inputMatch);
-
-                    Object.keys(matchResult).forEach(function (k) {
-                        matches[k] = matchResult[k];
-                    });
-
-                    return !matchIsEmpty && !this.returnAllMatches; // break out of Array.some
-                } else {
-                    matchResult = obj.pattern.exec(input) || [];
-
-                    if (matchResult.length) {
-                        matches[obj.param] = matchResult[0];
-                        return !this.returnAllMatches; // break out of Array.some
-                    }
-                }
-            }.bind(this));
+        if (matchIsEmpty) {
+            return false; // next schemaPart
         }
-        return matches;
-    };
+
+        if (schemaPart.hasOwnProperty('parse')) {
+            var parseResult = schemaPart.parse(matchResult);
+            Object.assign(matches, parseResult)
+        } else {
+            matches[schemaPart.param] = matchResult[0];
+        }
+
+        return !this.returnAllMatches; // break out of Array.some
+    }.bind(this));
+
+    return matches;
 };
+
+module.exports = SearchParser;
