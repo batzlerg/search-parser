@@ -3,32 +3,33 @@ var SearchParser = require('../SearchParser');
 var expect = require('chai').expect;
 
 describe("search-parser", function () {
-    var testPatterns = [
-        {
-            param: 'param1',
-            pattern: /^([a-z]_[0-9]{1,5})$/i
-        },
-        {
-            param: 'param2',
-            pattern: /^([a-z]_[0-9]{6,}(?:,\s*[a-z]_[0-9]{6,})*)$/i
-        },
-        {
-            param: 'param3',
-            pattern: /^([0-9]{6,}(?:,\s*[0-9]{6,})*)$/i
-        },
-        {
-            pattern: /^(.+?)\s(.+\s)?(.+)|(.*)$/i,
-            parse: function (result) {
-                return {
-                    subParam1: result[1],
-                    subParam2: result[3] || result[4]
-                };
-            }
-        }
-    ];
+    var testPatterns;
     var searchParser;
-
+    
     beforeEach(function () {
+        testPatterns = [
+            {
+                param: 'param1',
+                pattern: /^([a-z]_[0-9]{1,5})$/i
+            },
+            {
+                param: 'param2',
+                pattern: /^([a-z]_[0-9]{6,}(?:,\s*[a-z]_[0-9]{6,})*)$/i
+            },
+            {
+                param: 'param3',
+                pattern: /^([0-9]{6,}(?:,\s*[0-9]{6,})*)$/i
+            },
+            {
+                pattern: /^(.+?)\s(.+\s)?(.+)|(.*)$/i,
+                parse: function (result) {
+                    return {
+                        subParam1: result[1],
+                        subParam2: result[3] || result[4]
+                    };
+                }
+            }
+        ];
         searchParser = new SearchParser(testPatterns);
     });
 
