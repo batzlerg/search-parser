@@ -1,14 +1,12 @@
 /**
  * SearchParser
  * @param {Array} patterns  Enumerates params and the patterns that match them
- * @param {boolean} options.returnAllMatches  If true return all matches (not just first)
  */
 
 'use strict';
 
 var SearchParser = function (patterns, options) {
-    this.patterns = patterns;
-    this.returnAllMatches = options ? options.returnAllMatches : false;
+    this._patterns = patterns;
 };
 
 /**
@@ -23,7 +21,7 @@ SearchParser.prototype.match = function (input) {
     if (!input.length) {
         return {};
     }
-    this.patterns.some(function (schemaPart) {
+    this._patterns.some(function (schemaPart) {
         var matchResult = input.match(schemaPart.pattern);
         var matchIsEmpty = matchResult === null ||
                            !matchResult.length ||
@@ -40,7 +38,7 @@ SearchParser.prototype.match = function (input) {
             matches[schemaPart.param] = matchResult[0];
         }
 
-        return !this.returnAllMatches; // break out of Array.some
+        return true; // break out of Array.some
     }.bind(this));
 
     return matches;

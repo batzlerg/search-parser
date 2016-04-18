@@ -32,11 +32,6 @@ sp.match('bar');      // returns {lastName: 'bar'}
 sp.match('foo bar');  // returns {firstName: 'foo', lastName: 'bar'}
 ```
 
-The default behavior of `.match` is to return the result of the first successful pattern match. This can be overridden to include all param matches by passing a truthy option `returnAllMatches` when instantiating SearchParser:
-
-```js
-var sp = new SearchParser(patterns, {returnAllMatches: true});
-```
 ##regex handling:
 
 Patterns should be passed as regex literals, to avoid having to escape characters that serve as regex operators.

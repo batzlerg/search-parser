@@ -49,13 +49,5 @@ describe("search-parser", function () {
             expect(searchParser.match('last')).to.include({subParam2: 'last'});
             expect(searchParser.match('asdfasdfasdf')).to.not.have.property('param4');
         });
-        it("should should return all matches if returnAllMatches option is truthy", function () {
-            searchParser = new SearchParser(testPatterns, {returnAllMatches: true});
-            expect(searchParser.match('12341234, 12341234')).to.include({
-                param3: '12341234, 12341234',
-                subParam1: '12341234,',
-                subParam2: '12341234'
-            });
-        });
     });
 });
